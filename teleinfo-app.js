@@ -3,11 +3,11 @@ var util = require('util');
 var assert = require('assert');
 var mongoClient = require('mongodb').MongoClient;
 
-var login = process.argv[2];
-var pwd = process.argv[3];
-var hostmongo = 'ds061928.mongolab.com';
-var portmongo = '61928';
-var databaseName = 'teleinfo';
+var login = process.env.MONGO_LOGIN;
+var pwd = process.env.MONGO_PASSWORD;
+var hostmongo = process.env.MONGO_HOST;
+var portmongo = process.env.MONGO_PORT;
+var databaseName = process.env.MONGO_DATABASE;
 var url = 'mongodb://'+login+':'+encodeURIComponent(pwd) + '@'+hostmongo+':'+portmongo+'/'+databaseName;
 var collection;
 
