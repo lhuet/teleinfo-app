@@ -2,6 +2,7 @@
 
 var tarifbleu = require('tarifbleu');
 var loggerMongo = require('./mongologger');
+var consoinst = require('./consoinst');
 var express = require('express');
 var http = require('http');
 
@@ -14,21 +15,35 @@ var app = express();
 // Variables environnement
 app.set('port', process.env.PORT || 3000);
 
+// Requête 'isAlive'
 app.get('/', function(req, res) {
     res.json('application teleinfo démarrée');
 });
 
-app.get('/rest/pinst', function(req, res) {
-    res.json(tarifbleu.getPuissanceApparente());
+app.all('/rest/inst/*', function(req, res, next) {
+    req.tarifbleu = tarifbleu;
+    next();
 });
 
-app.get('/rest/iinst', function(req, res) {
-    res.json(tarifbleu.getIntensite());
+// Requêtes données instantannées
+app.get('/rest/inst/p', consoinst.pinst);
+app.get('/rest/inst/i', consoinst.iinst);
+app.get('/rest/inst/index', consoinst.index);
+
+// Requêtes mongo
+app.get('/rest/consojour/:jour', function(req, res) {
+/*    db.teleinfo.aggregate([
+    { $match : {datetime: {$gte: ISODate("2014-01-07T00:00:00Z")}}}, 
+    { $sort : { datetime: 1 } },
+    { $group : { 
+        _id : 1,
+        min : { $first: "$indexcpt"},
+        max : { $last: "$indexcpt"}
+        }
+    }
+    ]);*/
 });
 
-app.get('/rest/index', function(req, res) {
-    res.json(tarifbleu.getIndex());
-});
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Lancement application teleinfo sur le port ' + app.get('port'));
