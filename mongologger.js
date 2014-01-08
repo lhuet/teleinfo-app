@@ -1,3 +1,5 @@
+'use strict';
+
 var util = require('util');
 var assert = require('assert');
 var mongoClient = require('mongodb').MongoClient;
