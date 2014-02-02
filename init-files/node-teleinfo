@@ -1,0 +1,22 @@
+#!/bin/sh
+#/etc/init.d/node-teleinfo
+
+export PATH=$PATH:/opt/node/bin
+export NODE_PATH=$NODE_PATH:/opt/node/lib/node_modules
+
+[ -f /etc/node-teleinfo.conf ] && . /etc/node-teleinfo.conf
+
+case "$1" in
+  start)
+  exec forever --sourceDir=/home/pi/teleinfo-app -p /tmp teleinfo-app.js &
+  ;;
+stop)
+  exec forever stop --sourceDir=/home/pi/teleinfo-app teleinfo-app.js
+  ;;
+*)
+  echo "Usage: /etc/init.d/node-teleinfo {start|stop}"
+  exit 1
+  ;;
+esac
+
+exit 0
