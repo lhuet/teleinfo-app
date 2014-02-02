@@ -6,8 +6,10 @@ var consoinst = require('./consoinst');
 var express = require('express');
 var http = require('http');
 
+var serialPort = process.env.TELE_PORT || '/dev/ttyAMA0';
+
 // Log toutes les minutes
-tarifbleu.tarifbleu('/dev/ttyAMA0', '00 * * * * *', loggerMongo.getLogger());
+tarifbleu.tarifbleu(serialPort, '00 * * * * *', loggerMongo.getLogger());
 
 // Partie API Rest
 var app = express();
