@@ -21,7 +21,7 @@ Installation
 Lancement
 ---------
 
-Pour lancer l'application, vous devrier pouvoir lancer :
+Pour lancer l'application, vous devriez pouvoir lancer :
 
 	node teleinfo-app.js
 
