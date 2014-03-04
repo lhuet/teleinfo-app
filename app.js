@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
     res.json('application teleinfo démarrée');
 });
 
+// Mise à jour du contexte des requêtes sur le compteur
 app.all('/rest/inst/*', function(req, res, next) {
     req.tarifbleu = tarifbleu;
     next();
