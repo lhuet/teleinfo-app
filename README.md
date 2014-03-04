@@ -23,7 +23,7 @@ Lancement
 
 Pour lancer l'application, vous devriez pouvoir lancer :
 
-	node teleinfo-app.js
+	node app.js
 
 Et maintenant en tant que deamon :
 

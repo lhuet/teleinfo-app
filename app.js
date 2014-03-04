@@ -1,8 +1,8 @@
 'use strict';
 
 var tarifbleu = require('tarifbleu');
-var loggerMongo = require('./mongologger');
-var consoinst = require('./consoinst');
+var loggerMongo = require('./mongo/mongologger');
+var consoinst = require('./teleinfo/consoinst');
 var express = require('express');
 var http = require('http');
 
