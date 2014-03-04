@@ -12,7 +12,7 @@ var databaseName = process.env.MONGO_DATABASE;
 var url = 'mongodb://'+login+':'+encodeURIComponent(pwd) + '@'+hostmongo+':'+portmongo+'/'+databaseName;
 var collection;
 
-var getLogger = function() {
+exports.getLogger = function() {
     
     mongoClient.connect(url, {uri_decode_auth: true, auto_reconnect: true }, function (err, db) {
         assert.equal(null, err);
@@ -42,5 +42,3 @@ var getLogger = function() {
     
     };
 };
-
-exports.getLogger = getLogger;
