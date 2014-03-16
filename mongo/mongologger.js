@@ -1,7 +1,6 @@
 'use strict';
 
 var util = require('util');
-var assert = require('assert');
 
 exports.getLogger = function(db) {
 
