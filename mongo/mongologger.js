@@ -2,29 +2,11 @@
 
 var util = require('util');
 var assert = require('assert');
-var mongoClient = require('mongodb').MongoClient;
 
-var login = process.env.MONGO_LOGIN;
-var pwd = process.env.MONGO_PASSWORD;
-var hostmongo = process.env.MONGO_HOST;
-var portmongo = process.env.MONGO_PORT;
-var databaseName = process.env.MONGO_DATABASE;
-var url = 'mongodb://'+login+':'+encodeURIComponent(pwd) + '@'+hostmongo+':'+portmongo+'/'+databaseName;
-var collection;
+exports.getLogger = function(db) {
 
-exports.getLogger = function() {
-    
-    mongoClient.connect(url, {uri_decode_auth: true, auto_reconnect: true }, function (err, db) {
-        assert.equal(null, err);
-        assert.ok(db != null);
-        db.stats(function(err, stats) {
-          assert.equal(null, err);
-          assert.ok(stats != null);
-        });
-        console.log('Connexion database ok');
-        collection = db.collection('teleinfo');
-    });
-    
+    var collection = db.collection('teleinfo');
+
     return function (data) {
       var docToInsert = {
         'datetime' : new Date(),
@@ -39,6 +21,5 @@ exports.getLogger = function() {
           console.log(util.inspect(err));
         }
       });
-    
     };
 };
