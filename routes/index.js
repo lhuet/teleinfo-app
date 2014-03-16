@@ -1,3 +1,5 @@
+'use strict';
+
 var consoinst = require('../teleinfo/consoinst');
 var mongo = require('../mongo/mongoHelpers');
 
