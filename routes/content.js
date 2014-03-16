@@ -1,14 +1,20 @@
 "use strict";
 
 var mongo = require('../mongo/mongoHelpers');
+var moment = require('moment');
 
 function ContentMongo (db) {
 
-    this.testMongo = function (req, res) {
-        console.log('Requête HTTP mongo reçue')
+    this.consoParJour = function (req, res) {
 
+        // Url attendue du type : /rest/conso/journaliere?debut=2014-01-27&fin=2014-03-16
+
+        var debut = moment(req.query.debut);
+        var fin = moment(req.query.fin);
+
+        // Conso journalière triée par conso (jour le plus consommateur en premier)
         var request = [
-            {$match: {datetime: {$gte: new Date("2014-01-01T00:00:00.000Z"), $lte: new Date("2014-02-17T00:00:00.000Z")}}},
+            {$match: {datetime: {$gte: debut.toDate(), $lte: fin.toDate()}}},
             {$project: {annee: {'$year': '$datetime'},
                 mois: {'$month': '$datetime'},
                 jour: {'$dayOfMonth': '$datetime'},

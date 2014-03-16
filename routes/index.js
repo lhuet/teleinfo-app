@@ -24,6 +24,6 @@ module.exports = exports = function(app, db, tarifbleu) {
     app.get('/rest/inst/index', consoinst.index);
 
     // Requêtes mongo
-    app.get('/rest/testmongo', content.testMongo);
+    app.get('/rest/conso/journaliere', content.consoParJour);
 
 }
