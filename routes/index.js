@@ -27,4 +27,4 @@ module.exports = exports = function(app, db, tarifbleu) {
     app.get('/rest/conso/journaliere', content.consoParJour);
     app.get('/rest/puissance/pmaxparheure', content.pmaxParHeure);
 
-}
+};

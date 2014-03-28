@@ -13,11 +13,13 @@ mongoClient.connect(config.urlMongo, {uri_decode_auth: true, auto_reconnect: tru
 
     // Test connexion database
     assert.equal(null, err);
-    assert.ok(db != null);
+    assert.ok(db !== null);
     console.log('Connexion database ok');
 
     // Log toutes les minutes
-    tarifbleu.tarifbleu(config.serialPort, '00 * * * * *', loggerMongo.getLogger(db));
+    if (process.env.NODE_ENV === 'RPI') {
+        tarifbleu.tarifbleu(config.serialPort, '00 * * * * *', loggerMongo.getLogger(db));
+    }
 
     // Partie API Rest
     var app = express();

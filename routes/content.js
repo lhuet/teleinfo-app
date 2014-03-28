@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var mongo = require('../mongo/mongoHelpers');
 var moment = require('moment');
@@ -87,6 +87,6 @@ function ContentMongo(db) {
 
     };
 
-};
+}
 
 module.exports = ContentMongo;

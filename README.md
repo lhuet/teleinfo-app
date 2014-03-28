@@ -23,7 +23,7 @@ Lancement
 
 Pour lancer l'application, vous devriez pouvoir lancer :
 
-	node app.js
+	node server.js
 
 Et maintenant en tant que deamon :
 

@@ -8,10 +8,10 @@ export NODE_PATH=$NODE_PATH:/opt/node/lib/node_modules
 
 case "$1" in
   start)
-  exec forever --sourceDir=/home/pi/teleinfo-app -p /tmp app.js &
+  exec forever --sourceDir=/home/pi/teleinfo-app -p /tmp server.js &
   ;;
 stop)
-  exec forever stop --sourceDir=/home/pi/teleinfo-app app.js
+  exec forever stop --sourceDir=/home/pi/teleinfo-app server.js
   ;;
 *)
   echo "Usage: /etc/init.d/node-teleinfo {start|stop}"

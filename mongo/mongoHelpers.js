@@ -7,4 +7,4 @@ exports.aggregate = function(db, collection, request) {
     console.log('Requête aggregate lancée');
     db.collection(collection).aggregate(request, deferred.makeNodeResolver());
     return deferred.promise;
-}
+};
