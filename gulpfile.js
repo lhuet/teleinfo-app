@@ -3,7 +3,10 @@
 var gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
-    stylish = require('jshint-stylish');
+    stylish = require('jshint-stylish'),
+    livereload = require('gulp-livereload'),
+    lr = require('tiny-lr'),
+    server = lr();
 
 
 var paths = {
@@ -44,12 +47,21 @@ gulp.task('lint_frontend', function() {
 // Frontend
 gulp.task('frontend', function() {
     gulp.src(paths.frontend_static)
+        .pipe(livereload(server))
         .pipe(gulp.dest(paths.dest_static));
 });
 
 // Excécution en cas de changement
 gulp.task('watch', function() {
-    gulp.watch(paths.frontend_static, ['frontend']);
+    server.listen(35729, function (err) {
+        if (err) {
+            return console.log(err)
+        };
+        console.log('Serveur Livereload en écoute sur le port 35729');
+        gulp.watch(paths.frontend_static, ['frontend']);
+
+    });
+
 });
 
 // Default Task

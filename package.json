@@ -13,6 +13,8 @@
     "gulp": "^3.6.0",
     "gulp-nodemon": "^1.0.2",
     "gulp-jshint": "^1.5.1",
-    "jshint-stylish": "^0.1.5"
+    "jshint-stylish": "^0.1.5",
+    "gulp-livereload": "^1.2.0",
+    "tiny-lr": "0.0.5"
   }
 }
