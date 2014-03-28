@@ -14,12 +14,24 @@ var paths = {
     dest_static: 'public'
 };
 
+/**** Tâches Serveur ****/
+/************************/
+
 // Lint serveur
 gulp.task('lint_server', function() {
     gulp.src(paths.server_scripts)
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
+
+gulp.task('nodemon', function() {
+    nodemon({ script: 'server.js', ext: 'js', ignore: ['gulpfile.js'] })
+        .on('change', ['lint_server']);
+});
+
+
+/**** Tâches Frontend ****/
+/*************************/
 
 // Lint frontend
 gulp.task('lint_frontend', function() {
@@ -35,10 +47,10 @@ gulp.task('frontend', function() {
         .pipe(gulp.dest(paths.dest_static));
 });
 
-gulp.task('nodemon', function() {
-    nodemon({ script: 'server.js', ext: 'js', ignore: ['gulpfile.js'] })
-        .on('change', ['lint_server']);
+// Excécution en cas de changement
+gulp.task('watch', function() {
+    gulp.watch(paths.frontend_static, ['frontend']);
 });
 
 // Default Task
-gulp.task('default', ['lint_frontend', 'lint_server', 'frontend', 'nodemon']);
+gulp.task('default', ['lint_frontend', 'lint_server', 'frontend', 'watch', 'nodemon']);
