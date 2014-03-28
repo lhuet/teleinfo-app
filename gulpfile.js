@@ -36,7 +36,7 @@ gulp.task('frontend', function() {
 });
 
 gulp.task('nodemon', function() {
-    nodemon({ script: 'server.js', ext: 'html js', ignore: ['gulpfile.js'] })
+    nodemon({ script: 'server.js', ext: 'js', ignore: ['gulpfile.js'] })
         .on('change', ['lint_server']);
 });
 
