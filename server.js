@@ -27,6 +27,9 @@ mongoClient.connect(config.urlMongo, {uri_decode_auth: true, auto_reconnect: tru
     // routes de l'application
     routes(app, db, tarifbleu);
 
+    // Fichiers static
+    app.use(express.static(__dirname + '/public'));
+
     app.listen(config.httpPort);
     console.log('Lancement application teleinfo sur le port ' + config.httpPort);
 

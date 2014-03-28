@@ -7,8 +7,13 @@ module.exports = exports = function(app, db, tarifbleu) {
 
     var content = new ContentMongo(db);
 
-    // Requête 'isAlive'
+    // home
     app.get('/', function (req, res) {
+        res.redirect('/index.html');
+    });
+
+    // Requête 'isAlive'
+    app.get('/isAlive', function (req, res) {
         res.json('application teleinfo démarrée');
     });
 
