@@ -1,9 +1,9 @@
 'use strict';
 
 var tarifbleu = require('tarifbleu');
-var loggerMongo = require('./mongo/mongologger');
-var routes = require('./routes');
-var config = require('./config');
+var loggerMongo = require('./app/mongo/mongologger');
+var routes = require('./app/routes');
+var config = require('./app/config');
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var express = require('express');
