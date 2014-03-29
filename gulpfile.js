@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     inject = require("gulp-inject"),
     livereload = require('gulp-livereload'),
     clean = require('gulp-clean'),
+    concat = require('gulp-concat'),
+    es = require('event-stream'),
     _ = require('lodash'),
     util = require('util'),
     lr = require('tiny-lr'),
@@ -15,16 +17,25 @@ var gulp = require('gulp'),
 
 var paths = {
     server_scripts: ['server.js', 'app/**/*.js', '!node_modules/**'],
-    frontend_scripts: ['frontend/app/**/*.js'],
-    frontend_static: ['frontend/app/**/*.html'],
-    frontend_bootstrap_static: ['frontend/vendor/bootstrap/dist/**'],
-    frontend_custom_css: ['frontend/app/**/*.css'],
-    home: 'frontend/index.html',
-    home_js: ['public/js/*.js'],
-    home_css: ['public/css/*.css'],
-    home_bootstrap_res: ['frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
-                        'frontend/vendor/bootstrap/dist/css/bootstrap-theme.min.css',
-                        'frontend/vendor/bootstrap/dist/js/bootstrap.min.js'],
+    frontend: {
+        scripts: ['frontend/app/**/*.js'],
+        static: ['frontend/app/**/*.html'],
+        custom_css: ['frontend/app/**/*.css'],
+        home: ['frontend/index.html']
+    },
+    vendor_files: {
+        js: [
+            'frontend/vendor/angular/angular.js',
+            'frontend/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+        ],
+        css: [
+            'frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
+            'frontend/vendor/bootstrap/dist/css/bootstrap-theme.css'
+        ],
+        fonts: [
+            'frontend/vendor/bootstrap/dist/fonts/**'
+        ]
+    },
     dest_static: 'public'
 };
 
@@ -60,39 +71,54 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
+// Frontend static
+gulp.task('frontend_static', function() {
+    es.merge(
+        gulp.src(paths.vendor_files.js)
+            .pipe(gulp.dest(paths.dest_static+'/vendor/lib')),
+        gulp.src(paths.vendor_files.css)
+            .pipe(gulp.dest(paths.dest_static+'/vendor/css')),
+        gulp.src(paths.vendor_files.fonts)
+            .pipe(gulp.dest(paths.dest_static+'/vendor/fonts')),
+        gulp.src(_.union(paths.frontend.scripts, paths.frontend.custom_css, paths.frontend.static))
+            .pipe(gulp.dest(paths.dest_static))
+    )
+        .pipe(livereload(server));
+});
+
 // Génération de la home (injection des .css et .js)
-gulp.task('frontend_home', function() {
-    gulp.src(paths.home)
-        .pipe(inject(gulp.src(paths.home_bootstrap_res, {read: false}),
+gulp.task('frontend_home', ['frontend_static'], function() {
+
+    // Concatenate vendor scripts
+    var vendorStream = gulp.src(paths.vendor_files.js)
+        .pipe(concat('vendors.js'))
+        .pipe(gulp.dest(paths.dest_static));
+
+//    // Concatenate AND minify app sources
+//    var appStream = gulp.src(['./src/app/*.js'])
+//        .pipe(concat('app.js'))
+//        .pipe(uglify())
+//        .pipe(gulp.dest('./dist'));
+
+
+    gulp.src(paths.frontend.home)
+        .pipe(inject(vendorStream))
+        .pipe(inject(gulp.src(paths.vendor_files.css, {read: false}),
             {
-                addRootSlash: false,  // ensures proper relative paths
-                ignorePath: 'frontend/vendor/bootstrap/dist', // ensures proper relative paths
-                addPrefix: 'lib/bootstrap'
+                starttag: '<!-- inject:css -->',
+                addRootSlash: false,
+                ignorePath: 'frontend/vendor/bootstrap/dist/css',
+                addPrefix: 'vendor/css'
             }))
-        .pipe(inject(gulp.src(_.union(paths.home_css, paths.home_js), {read: false}),
+        .pipe(inject(gulp.src(_.union(paths.frontend.scripts, paths.frontend.custom_css), {read: false}),
             {
                 starttag: '<!-- inject:custom:{{ext}} -->',
                 addRootSlash: false,
-                ignorePath: 'public'
+                ignorePath: 'frontend/app'
             }))
         .pipe(livereload(server))
         .pipe(gulp.dest(paths.dest_static));
 });
-
-// Frontend static
-gulp.task('frontend_static', function() {
-    gulp.src(_.union(paths.frontend_static, paths.frontend_scripts, paths.frontend_custom_css))
-        .pipe(livereload(server))
-        .pipe(gulp.dest(paths.dest_static));
-});
-
-// Libs Frontend
-gulp.task('frontend_libs', function() {
-    gulp.src(paths.frontend_bootstrap_static)
-        .pipe(livereload(server))
-        .pipe(gulp.dest(paths.dest_static+'/lib/bootstrap'));
-});
-
 
 // Excécution en cas de changement
 gulp.task('watch', function() {
@@ -102,11 +128,14 @@ gulp.task('watch', function() {
         };
         console.log('Serveur Livereload en écoute sur le port 35729');
 
-        gulp.watch(paths.frontend_static, ['frontend_static', 'frontend_home']);
-        gulp.watch(paths.frontend_scripts, ['frontend_home', 'lint_frontend']);
+        gulp.watch(_.union(paths.frontend.scripts,
+                            paths.frontend.custom_css,
+                            paths.frontend.static,
+                            paths.frontend.home), ['frontend_home']);
+
     });
 
 });
 
 // Default Task
-gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'frontend_static', 'frontend_libs', 'watch', 'nodemon']);
+gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'watch', 'nodemon']);
