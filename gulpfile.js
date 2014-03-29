@@ -10,6 +10,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     es = require('event-stream'),
     _ = require('lodash'),
+    httpProxy = require('http-proxy'),
+    http = require('http'),
     util = require('util'),
     lr = require('tiny-lr'),
     server = lr();
@@ -50,7 +52,7 @@ gulp.task('lint_server', function() {
 });
 
 gulp.task('nodemon', function() {
-    nodemon({ script: 'server.js', ext: 'js', ignore: ['gulpfile.js', 'frontend/**'] })
+    nodemon({ script: 'server.js', verbose: false, ignore: ['gulpfile.js', 'frontend/', 'public/'] })
         .on('change', ['lint_server']);
 });
 
@@ -116,8 +118,8 @@ gulp.task('frontend_home', ['frontend_static'], function() {
                 addRootSlash: false,
                 ignorePath: 'frontend/app'
             }))
-        .pipe(livereload(server))
-        .pipe(gulp.dest(paths.dest_static));
+        .pipe(gulp.dest(paths.dest_static))
+        .pipe(livereload(server));
 });
 
 // Excécution en cas de changement
@@ -139,3 +141,7 @@ gulp.task('watch', function() {
 
 // Default Task
 gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'watch', 'nodemon']);
+
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
