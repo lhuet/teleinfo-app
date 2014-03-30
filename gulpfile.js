@@ -104,7 +104,7 @@ gulp.task('frontend_home', ['frontend_static'], function() {
 
 
     gulp.src(paths.frontend.home)
-        .pipe(inject(vendorStream))
+        .pipe(inject(vendorStream, {ignorePath: 'public/'}))
         .pipe(inject(gulp.src(paths.vendor_files.css, {read: false}),
             {
                 starttag: '<!-- inject:css -->',
@@ -142,6 +142,3 @@ gulp.task('watch', function() {
 // Default Task
 gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'watch', 'nodemon']);
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-});

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Suivi conso EDF">
+    <meta name="author" content="Laurent HUET">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Teleinfo - Suivi conso EDF</title>
     <!-- inject:css -->
     <!-- endinject -->
     <!-- inject:custom:css -->
@@ -23,13 +23,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="#">Teleinfo</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#about">A propos</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -37,9 +36,19 @@
 
     <div class="container">
 
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <div class="titre-dashboard">
+            <h1>Dashboard</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <p class="lead">Puissance instantannée</p>
+                <input type="text" ng-model="test">
+                <p>{{test}}</p>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <p class="lead">Index compteur</p>
+            </div>
         </div>
 
     </div><!-- /.container -->
