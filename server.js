@@ -34,3 +34,7 @@ mongoClient.connect(config.urlMongo, {uri_decode_auth: true, auto_reconnect: tru
     console.log('Lancement application teleinfo sur le port ' + config.httpPort);
 
 });
+
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
