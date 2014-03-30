@@ -143,3 +143,4 @@ gulp.task('watch', function() {
 // Default Task
 gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'watch', 'nodemon']);
 
+gulp.task('build', ['frontend_home']);
