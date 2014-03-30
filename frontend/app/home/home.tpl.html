@@ -1,12 +1,20 @@
-<div class="titre-dashboard">
-    <h1>Dashboard</h1>
-</div>
+<!--<div class="titre-dashboard">-->
+    <!--<h1>Dashboard</h1>-->
+<!--</div>-->
 
-<div class="row" ng-controller="HomeCtrl">
+<div class="row" ng-controller="HomeCtrl" style="padding-top: 50px;">
     <div class="col-md-6 col-xs-12">
-        <p class="lead">Puissance instantannée : <em>{{puissance}} W</em></p>
+        <div class="text-center">
+        <div width="350" ng-radial-gauge ranges="ranges"
+             value="value" value-unit="unit"
+             precision="precision" lower-limit="lowerLimit"
+             upper-limit="upperLimit"
+             font-style="18px Arial"></div>
+        <p class="lead text-center" style="padding-top: 20px">Puissance instantannée</p>
+        </div>
     </div>
     <div class="col-md-6 col-xs-12">
-        <p class="lead">Index compteur : <em>{{indexcompteur}} Wh</em></p>
+        <div class="text-center indexcompteur">{{indexcompteur}} Wh</div>
+        <p class="lead text-center" style="padding-top: 20px">Index compteur</p>
     </div>
 </div>

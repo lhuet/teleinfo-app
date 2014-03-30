@@ -27,6 +27,7 @@ var paths = {
     },
     vendor_files: {
         js: [
+            'frontend/vendor/jquery/dist/jquery.js',
             'frontend/vendor/angular/angular.js',
             'frontend/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
 /*            'frontend/vendor/angular-ui-router/release/angular-ui-router.js', */

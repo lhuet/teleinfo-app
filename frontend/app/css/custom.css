@@ -5,3 +5,10 @@ body {
     padding: 30px 15px;
     text-align: center;
 }
+
+.indexcompteur {
+    padding-top: 100px;
+    font-family: 'Share Tech Mono';
+    font-weight: bolder;
+    font-size: 4em;
+}
