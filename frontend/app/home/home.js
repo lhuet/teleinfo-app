@@ -26,6 +26,10 @@ angular.module('teleinfo.home', [])
         ];
     })
 
+
+    // Directive ngRadialGauge adaptée de @stherrienaspnet
+    // https://github.com/stherrienaspnet/ngRadialGauge
+    // TODO Virer la dépendance avec jQuery !
     .factory('d3Service', ['$document', '$window', '$q', '$rootScope',
         function($document, $window, $q, $rootScope) {
             var d = $q.defer(),
