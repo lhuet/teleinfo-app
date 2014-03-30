@@ -9,6 +9,8 @@ Installation
 	git clone https://github.com/lhuet/teleinfo-app.git
 	cd teleinfo-app
 	npm install
+	bower install
+	gulp build
 
 	sudo cp init-files/node-teleinfo /etc/init.d/node-teleinfo
 	sudo cp init-files/node-teleinfo.conf /etc/node-teleinfo.conf
