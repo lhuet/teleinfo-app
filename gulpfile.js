@@ -29,6 +29,8 @@ var paths = {
         js: [
             'frontend/vendor/angular/angular.js',
             'frontend/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+/*            'frontend/vendor/angular-ui-router/release/angular-ui-router.js', */
+            'frontend/vendor/angular-route/angular-route.js'
         ],
         css: [
             'frontend/vendor/bootstrap/dist/css/bootstrap.min.css',
@@ -76,8 +78,6 @@ gulp.task('clean', function() {
 // Frontend static
 gulp.task('frontend_static', function() {
     es.merge(
-        gulp.src(paths.vendor_files.js)
-            .pipe(gulp.dest(paths.dest_static+'/vendor/lib')),
         gulp.src(paths.vendor_files.css)
             .pipe(gulp.dest(paths.dest_static+'/vendor/css')),
         gulp.src(paths.vendor_files.fonts)
