@@ -3,6 +3,11 @@ Suivi conso électrique (compteur EDF)
 
 Application Node en cours de construction ...
 
+Dashboard
+
+![alt tag](https://raw.githubusercontent.com/lhuet/teleinfo-app/master/doc/dashboard_desktop.png)
+![alt tag](https://raw.githubusercontent.com/lhuet/teleinfo-app/master/doc/dashboard_mobile.jpeg)
+
 Installation
 ------------
 
