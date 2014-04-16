@@ -5,14 +5,16 @@ angular.module('teleinfo.home', [])
         $scope.value = undefined;
         $scope.indexcompteur = undefined;
 
-        $http.get('/rest/inst/p')
-            .success(function (data) {
-                $scope.value = data/1000;
-            });
-        $http.get('/rest/inst/index')
-            .success(function (data) {
-                $scope.indexcompteur = data;
-            });
+        setInterval(function() {
+            $http.get('/rest/inst/p')
+                .success(function (data) {
+                    $scope.value = data/1000;
+                });
+            $http.get('/rest/inst/index')
+                .success(function (data) {
+                    $scope.indexcompteur = data;
+                });
+        }, 2000)
 
         $scope.upperLimit = 6;
         $scope.lowerLimit = 0;
