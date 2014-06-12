@@ -1,4 +1,4 @@
-angular.module('teleinfo-app', ['ngRoute', 'teleinfo.home'])
+angular.module('teleinfo-app', ['ngRoute', 'teleinfo.home', 'teleinfo.history'])
     .config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider
@@ -6,6 +6,11 @@ angular.module('teleinfo-app', ['ngRoute', 'teleinfo.home'])
                     templateUrl: 'home/home.tpl.html',
                     controller: 'HomeCtrl',
                     controllerAs: 'home'
+                })
+                .when('/history', {
+                    templateUrl: 'history/history.tpl.html',
+                    controller: 'HistoryCtrl',
+                    controllerAs: 'history'
                 })
                 .otherwise({redirectTo: '/home'})
         }]);

@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
     es = require('event-stream'),
     _ = require('lodash'),
     httpProxy = require('http-proxy'),
@@ -21,7 +22,7 @@ var paths = {
     server_scripts: ['server.js', 'app/**/*.js', '!node_modules/**'],
     frontend: {
         scripts: ['frontend/app/**/*.js'],
-        static: ['frontend/app/**/*.html'],
+        static: ['frontend/app/**/*.html', 'frontend/app/**/*.json'],
         custom_css: ['frontend/app/**/*.css'],
         home: ['frontend/index.html']
     },
@@ -95,6 +96,7 @@ gulp.task('frontend_home', ['frontend_static'], function() {
     // Concatenate vendor scripts
     var vendorStream = gulp.src(paths.vendor_files.js)
         .pipe(concat('vendors.js'))
+	.pipe(uglify())
         .pipe(gulp.dest(paths.dest_static));
 
 //    // Concatenate AND minify app sources
@@ -144,3 +146,5 @@ gulp.task('watch', function() {
 gulp.task('default', ['lint_frontend', 'lint_server', 'frontend_home', 'watch', 'nodemon']);
 
 gulp.task('build', ['frontend_home']);
+
+gulp.task('devfront', ['lint_frontend', 'frontend_home', 'watch'])

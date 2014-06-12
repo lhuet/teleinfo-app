@@ -1,0 +1,28 @@
+<!--<div class="titre-dashboard">-->
+    <!--<h1>Dashboard</h1>-->
+<!--</div>-->
+
+
+
+<div class="row" style="padding-top: 50px;">
+    <form>
+        <input type="date" ng-model="dateMin">
+        <input type="date" ng-model="dateMax">
+        <input type="submit" value="Go" ng-click="changeDate(dateMin, dateMax)">
+
+    </form>
+</div>
+
+
+<div class="row" style="padding-top: 50px;">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Conso</th>
+        </tr>
+        <tr ng-repeat="conso in data | orderBy:'date'">
+            <td>{{conso.date | date : 'd/M/yy'}}</td>
+            <td>{{conso.conso}}</td>
+        </tr>
+    </table>
+</div>
